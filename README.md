@@ -1,12 +1,18 @@
 # TelegramBingWallpaper
-使用 Cloudflare Workers 定时脚本实现将 Bing Wallpaper 自动发送到 Telegram 会话中。
+利用更加便捷的Python脚本定时脚本实现将 Bing Wallpaper 自动发送到 Telegram 会话中。
 
 ---
 
-您只需要将此脚本部署到 Cloudflare Workers 中，然后配置环境变量和 Cron 定时器即可。
+您只需要将此脚本部署到任何具有python，并且安装了pyrogram的服务器中，Bot长期监测最新壁纸的更新状态
 
-在项目设置页面设置环境变量 `TELEGRAM_BOT_TOKEN` 为您的 Telegram Bot API Token，  
-将 `TELEGRAM_CHAT_ID` 设置为您要让脚本自动发送 Bing Wallpaper 的 Telegram 的聊天 Chat ID，可频道、群聊、私信。
+保活本脚本可使用各种方法，例如常见主流的systemd或者init.d等即可保活。
 
-然后设置触发事件，定义调用 Worker 的事件，  
-添加一个 Cron 触发器设置时间即可，注意时区。
+# 操作方法
+
+使用命令安装需要的插件 
+
+```
+pip install pyrogram tgcrypto
+```
+
+更改代码内部的变量，使用`python bot.py`即可运行使用

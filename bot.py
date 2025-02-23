@@ -3,6 +3,7 @@ import time
 import signal
 import sys
 from pyrogram import Client
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 API_ID = 'your_api_id'
 API_HASH = 'your_api_hash'
@@ -33,12 +34,22 @@ def fetch_bing_wallpaper():
 
 def send_wallpaper_to_channel(wallpaper, chat_id):
     caption = f"{wallpaper['title']}\n{wallpaper['copyright']}\nBing Wallpaper 第 [{wallpaper['enddate']}]({wallpaper['image_url']}) 期" 
+
+    # 创建内联按钮
+    keyboard = InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton("下载壁纸", url=wallpaper['image_url']),
+            InlineKeyboardButton("Github项目主页", url="https://github.com/zixuanya/TelegramBingWallpaper")
+        ]
+    ])
+    
     try:
         print(f"准备发送图片到 {chat_id}，图片 URL: {wallpaper['image_url']}")
         app.send_photo(
             chat_id=chat_id,
             photo=wallpaper['image_url'],
             caption=caption,
+            reply_markup=keyboard  # 添加按钮
         )
         print("壁纸已发送到 Telegram，下面是壁纸信息：" + caption)
     except Exception as e:
